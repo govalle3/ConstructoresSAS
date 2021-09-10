@@ -17,6 +17,7 @@ public class RequestConstructionService {
     public static final String MESSAGE_MISSING_SAND = "No posee recursos de arena";
     public static final String MESSAGE_MISSING_WOOD = "No posee recursos de madera";
     public static final String MESSAGE_MISSING_ADOBE = "No posee recursos de adobe";
+    public static final Integer CONCRETE_MATERIAL_HOUSE = 100;
     private final ConstructionRepository constructionRepository;
     private final MaterialRepository materialRepository;
 
@@ -38,7 +39,6 @@ public class RequestConstructionService {
             throw new ExceptionCoordinates(MESSAGE_USED_TERRAIN);
         }
     }
-
     private Integer validateAndAssignTypeOfConstruction(String constructionType) {
 
         switch (constructionType){
@@ -61,84 +61,6 @@ public class RequestConstructionService {
         return 0;
 
     }
-
-    private void validateGymMaterials() {
-        MaterialsDto materials = materialRepository.getAllMaterials().get(0);
-        if(materials.getConcrete() < 50){
-            throw new ExceptionMaterials(MESSAGE_MISSING_CONCRETE);
-        }
-        if(materials.getGravel() < 25){
-            throw new ExceptionMaterials(MESSAGE_MISSING_GRAVEL);
-        }
-        if(materials.getSand() < 45){
-            throw new ExceptionMaterials(MESSAGE_MISSING_SAND);
-        }
-        if(materials.getWood() < 10){
-            throw new ExceptionMaterials(MESSAGE_MISSING_WOOD);
-        }
-        if(materials.getAdobe() < 50){
-            throw new ExceptionMaterials(MESSAGE_MISSING_ADOBE);
-        }
-
-    }
-
-    private void validateBuildingMaterials() {
-        MaterialsDto materials = materialRepository.getAllMaterials().get(0);
-        if(materials.getConcrete() < 200){
-            throw new ExceptionMaterials(MESSAGE_MISSING_CONCRETE);
-        }
-        if(materials.getGravel() < 100){
-            throw new ExceptionMaterials(MESSAGE_MISSING_GRAVEL);
-        }
-        if(materials.getSand() < 180){
-            throw new ExceptionMaterials(MESSAGE_MISSING_SAND);
-        }
-        if(materials.getWood() < 40){
-            throw new ExceptionMaterials(MESSAGE_MISSING_WOOD);
-        }
-        if(materials.getAdobe() < 200){
-            throw new ExceptionMaterials(MESSAGE_MISSING_ADOBE);
-        }
-    }
-
-    private void validateSoccerFieldMaterials() {
-        MaterialsDto materials = materialRepository.getAllMaterials().get(0);
-        if(materials.getConcrete() < 20){
-            throw new ExceptionMaterials(MESSAGE_MISSING_CONCRETE);
-        }
-        if(materials.getGravel() < 20){
-            throw new ExceptionMaterials(MESSAGE_MISSING_GRAVEL);
-        }
-        if(materials.getSand() < 20){
-            throw new ExceptionMaterials(MESSAGE_MISSING_SAND);
-        }
-        if(materials.getWood() < 20){
-            throw new ExceptionMaterials(MESSAGE_MISSING_WOOD);
-        }
-        if(materials.getAdobe() < 20){
-            throw new ExceptionMaterials(MESSAGE_MISSING_ADOBE);
-        }
-    }
-
-    private void validateLakeMaterials() {
-        MaterialsDto materials = materialRepository.getAllMaterials().get(0);
-        if(materials.getConcrete() < 50){
-            throw new ExceptionMaterials(MESSAGE_MISSING_CONCRETE);
-        }
-        if(materials.getGravel() < 60){
-            throw new ExceptionMaterials(MESSAGE_MISSING_GRAVEL);
-        }
-        if(materials.getSand() < 80){
-            throw new ExceptionMaterials(MESSAGE_MISSING_SAND);
-        }
-        if(materials.getWood() < 10){
-            throw new ExceptionMaterials(MESSAGE_MISSING_WOOD);
-        }
-        if(materials.getAdobe() < 20){
-            throw new ExceptionMaterials(MESSAGE_MISSING_ADOBE);
-        }
-    }
-
     private void validateHouseMaterials() {
         MaterialsDto materials = materialRepository.getAllMaterials().get(0);
         if(materials.getConcrete() < 100){
@@ -156,6 +78,130 @@ public class RequestConstructionService {
         if(materials.getAdobe() < 100){
             throw new ExceptionMaterials(MESSAGE_MISSING_ADOBE);
         }
+        updateHouseMaterials(materials);
+
+    }
+    private void updateHouseMaterials(MaterialsDto materials) {
+        materials.setConcrete(materials.getConcrete()-100);
+        materials.setGravel(materials.getGravel()-50);
+        materials.setSand(materials.getSand()-90);
+        materials.setWood(materials.getWood()-20);
+        materials.setAdobe(materials.getAdobe()-100);
+        materialRepository.updateMaterials(materials);
+
+    }
+    private void validateLakeMaterials() {
+        MaterialsDto materials = materialRepository.getAllMaterials().get(0);
+        if(materials.getConcrete() < 50){
+            throw new ExceptionMaterials(MESSAGE_MISSING_CONCRETE);
+        }
+        if(materials.getGravel() < 60){
+            throw new ExceptionMaterials(MESSAGE_MISSING_GRAVEL);
+        }
+        if(materials.getSand() < 80){
+            throw new ExceptionMaterials(MESSAGE_MISSING_SAND);
+        }
+        if(materials.getWood() < 10){
+            throw new ExceptionMaterials(MESSAGE_MISSING_WOOD);
+        }
+        if(materials.getAdobe() < 20){
+            throw new ExceptionMaterials(MESSAGE_MISSING_ADOBE);
+        }
+        updateLakeMaterials(materials);
+    }
+    private void updateLakeMaterials(MaterialsDto materials) {
+        materials.setConcrete(materials.getConcrete()-50);
+        materials.setGravel(materials.getGravel()-60);
+        materials.setSand(materials.getSand()-80);
+        materials.setWood(materials.getWood()-10);
+        materials.setAdobe(materials.getAdobe()-20);
+        materialRepository.updateMaterials(materials);
+
+    }
+    private void validateSoccerFieldMaterials() {
+        MaterialsDto materials = materialRepository.getAllMaterials().get(0);
+        if(materials.getConcrete() < 20){
+            throw new ExceptionMaterials(MESSAGE_MISSING_CONCRETE);
+        }
+        if(materials.getGravel() < 20){
+            throw new ExceptionMaterials(MESSAGE_MISSING_GRAVEL);
+        }
+        if(materials.getSand() < 20){
+            throw new ExceptionMaterials(MESSAGE_MISSING_SAND);
+        }
+        if(materials.getWood() < 20){
+            throw new ExceptionMaterials(MESSAGE_MISSING_WOOD);
+        }
+        if(materials.getAdobe() < 20){
+            throw new ExceptionMaterials(MESSAGE_MISSING_ADOBE);
+        }
+        updateSoccerMaterials(materials);
+    }
+    private void updateSoccerMaterials(MaterialsDto materials) {
+        materials.setConcrete(materials.getConcrete()-20);
+        materials.setGravel(materials.getGravel()-20);
+        materials.setSand(materials.getSand()-20);
+        materials.setWood(materials.getWood()-20);
+        materials.setAdobe(materials.getAdobe()-20);
+        materialRepository.updateMaterials(materials);
+
+    }
+    private void validateBuildingMaterials() {
+        MaterialsDto materials = materialRepository.getAllMaterials().get(0);
+        if(materials.getConcrete() < 200){
+            throw new ExceptionMaterials(MESSAGE_MISSING_CONCRETE);
+        }
+        if(materials.getGravel() < 100){
+            throw new ExceptionMaterials(MESSAGE_MISSING_GRAVEL);
+        }
+        if(materials.getSand() < 180){
+            throw new ExceptionMaterials(MESSAGE_MISSING_SAND);
+        }
+        if(materials.getWood() < 40){
+            throw new ExceptionMaterials(MESSAGE_MISSING_WOOD);
+        }
+        if(materials.getAdobe() < 200){
+            throw new ExceptionMaterials(MESSAGE_MISSING_ADOBE);
+        }
+        updateBuildingMaterials(materials);
+
+    }
+    private void updateBuildingMaterials(MaterialsDto materials) {
+        materials.setConcrete(materials.getConcrete()-200);
+        materials.setGravel(materials.getGravel()-100);
+        materials.setSand(materials.getSand()-180);
+        materials.setWood(materials.getWood()-40);
+        materials.setAdobe(materials.getAdobe()-200);
+        materialRepository.updateMaterials(materials);
+
+    }
+    private void validateGymMaterials() {
+        MaterialsDto materials = materialRepository.getAllMaterials().get(0);
+        if(materials.getConcrete() < 50){
+            throw new ExceptionMaterials(MESSAGE_MISSING_CONCRETE);
+        }
+        if(materials.getGravel() < 25){
+            throw new ExceptionMaterials(MESSAGE_MISSING_GRAVEL);
+        }
+        if(materials.getSand() < 45){
+            throw new ExceptionMaterials(MESSAGE_MISSING_SAND);
+        }
+        if(materials.getWood() < 10){
+            throw new ExceptionMaterials(MESSAGE_MISSING_WOOD);
+        }
+        if(materials.getAdobe() < 50){
+            throw new ExceptionMaterials(MESSAGE_MISSING_ADOBE);
+        }
+        updateGymMaterials(materials);
+
+    }
+    private void updateGymMaterials(MaterialsDto materials) {
+        materials.setConcrete(materials.getConcrete()-50);
+        materials.setGravel(materials.getGravel()-25);
+        materials.setSand(materials.getSand()-45);
+        materials.setWood(materials.getWood()-10);
+        materials.setAdobe(materials.getAdobe()-50);
+        materialRepository.updateMaterials(materials);
 
     }
 

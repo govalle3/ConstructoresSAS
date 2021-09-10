@@ -31,12 +31,17 @@ public class ConstructionRepositoryImpl implements ConstructionRepository {
 
     @Override
     public List<ConstructionDto> findEndDateConstruction() {
-        return this.constructionMapper.mapFromEntityList(constructionJpaRepository.findAll());
+        return this.constructionMapper.mapFromEntityList(this.constructionJpaRepository.findAll());
     }
 
     @Override
-    public Boolean validateCoordinate(String coordinateX, String coordinateYs) {
-        return false;
+    public Boolean validateCoordinate(String coordinateX, String coordinateY) {
+        if(this.constructionJpaRepository.findCoordinates(coordinateX, coordinateY).size() > 0){
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
 }

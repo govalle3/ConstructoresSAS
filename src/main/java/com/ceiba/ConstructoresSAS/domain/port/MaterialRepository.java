@@ -7,4 +7,6 @@ import java.util.List;
 public interface MaterialRepository {
 
     List<MaterialsDto> getAllMaterials();
+
+    void updateMaterials(MaterialsDto materialsDto);
 }

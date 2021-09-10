@@ -9,11 +9,14 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class MaterialsDto {
-    private final Integer concrete;
-    private final Integer gravel;
-    private final Integer sand;
-    private final Integer wood;
-    private final Integer adobe;
+
+    private  Long    id;
+    private  Integer concrete;
+    private  Integer gravel;
+    private  Integer sand;
+    private  Integer wood;
+    private  Integer adobe;
+
 
 
 }

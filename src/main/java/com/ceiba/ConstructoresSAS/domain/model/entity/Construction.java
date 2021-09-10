@@ -32,4 +32,6 @@ public class Construction {
         this.coordinateY = coordinateY;
         this.state = state;
     }
+
+
 }

@@ -3,6 +3,7 @@ package com.ceiba.ConstructoresSAS.infraestructure.adapters.repository;
 import com.ceiba.ConstructoresSAS.domain.model.dto.MaterialsDto;
 import com.ceiba.ConstructoresSAS.domain.port.MaterialRepository;
 import com.ceiba.ConstructoresSAS.infraestructure.adapters.MaterialJpaRepository;
+import com.ceiba.ConstructoresSAS.infraestructure.adapters.entity.MaterialEntity;
 import com.ceiba.ConstructoresSAS.infraestructure.adapters.mapper.MaterialMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -19,5 +20,12 @@ public class MaterialRepositoryImpl implements MaterialRepository {
     @Override
     public List<MaterialsDto> getAllMaterials() {
         return materialMapper.mapToDtoList.apply(this.materialJpaRepository.findAll());
+    }
+
+    @Override
+    public void updateMaterials(MaterialsDto materialsDto) {
+        MaterialEntity materialEntity = materialMapper.mapToEntity(materialsDto);
+        materialJpaRepository.save(materialEntity);
+
     }
 }
