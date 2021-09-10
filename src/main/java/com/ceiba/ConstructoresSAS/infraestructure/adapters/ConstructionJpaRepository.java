@@ -13,4 +13,8 @@ public interface ConstructionJpaRepository extends JpaRepository<ConstructionEnt
             nativeQuery = true)
     List<ConstructionEntity> findCoordinates(String coordinateX, String coordinateY);
 
+    @Query(value = "SELECT finishConstructionDay FROM construction WHERE state=pendiente",
+            nativeQuery = true)
+    List<ConstructionEntity> findPendingConstruction();
+
 }

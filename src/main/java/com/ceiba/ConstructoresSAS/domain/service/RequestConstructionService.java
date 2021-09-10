@@ -2,12 +2,14 @@ package com.ceiba.ConstructoresSAS.domain.service;
 
 import com.ceiba.ConstructoresSAS.domain.exception.ExceptionCoordinates;
 import com.ceiba.ConstructoresSAS.domain.exception.ExceptionMaterials;
+import com.ceiba.ConstructoresSAS.domain.model.dto.ConstructionDto;
 import com.ceiba.ConstructoresSAS.domain.model.dto.MaterialsDto;
 import com.ceiba.ConstructoresSAS.domain.model.entity.Construction;
 import com.ceiba.ConstructoresSAS.domain.port.ConstructionRepository;
 import com.ceiba.ConstructoresSAS.domain.port.MaterialRepository;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class RequestConstructionService {
 
@@ -17,7 +19,6 @@ public class RequestConstructionService {
     public static final String MESSAGE_MISSING_SAND = "No posee recursos de arena";
     public static final String MESSAGE_MISSING_WOOD = "No posee recursos de madera";
     public static final String MESSAGE_MISSING_ADOBE = "No posee recursos de adobe";
-    public static final Integer CONCRETE_MATERIAL_HOUSE = 100;
     private final ConstructionRepository constructionRepository;
     private final MaterialRepository materialRepository;
 
@@ -204,15 +205,15 @@ public class RequestConstructionService {
         materialRepository.updateMaterials(materials);
 
     }
-
     private void assignDateConstruction(Construction construction, Integer dueDate) {
         LocalDate requestDay = construction.getRequestDay();
+        List<ConstructionDto> constructionDtoList = this.constructionRepository.findPendingConstruction();
+
         LocalDate startConstructionDay = requestDay.plusDays(1);
         LocalDate finishConstructionDay = startConstructionDay.plusDays(dueDate);
         construction.setStartConstructionDay(startConstructionDay);
         construction.setFinishConstructionDay(finishConstructionDay);
     }
-
     private Construction create(Construction construction) {
         construction.setState("pendiente");
         return this.constructionRepository.saveConstructionRequest(construction);

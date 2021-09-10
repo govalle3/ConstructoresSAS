@@ -30,7 +30,7 @@ public class ConstructionRepositoryImpl implements ConstructionRepository {
     }
 
     @Override
-    public List<ConstructionDto> findEndDateConstruction() {
+    public List<ConstructionDto> findConstruction() {
         return this.constructionMapper.mapFromEntityList(this.constructionJpaRepository.findAll());
     }
 
@@ -42,6 +42,11 @@ public class ConstructionRepositoryImpl implements ConstructionRepository {
             return false;
         }
 
+    }
+
+    @Override
+    public List<ConstructionDto> findPendingConstruction() {
+        return this.constructionMapper.mapFromEntityList(this.constructionJpaRepository.findPendingConstruction());
     }
 
 }

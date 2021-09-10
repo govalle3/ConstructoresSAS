@@ -19,7 +19,7 @@ public interface ConstructionRepository {
      * @params construction
      * @return lista de construcciones
      */
-    List<ConstructionDto> findEndDateConstruction();
+    List<ConstructionDto> findConstruction();
 
     /**
      * Valida si el terreno está en uso
@@ -29,5 +29,11 @@ public interface ConstructionRepository {
      * @param coordinateY
      */
     Boolean validateCoordinate(String coordinateX, String coordinateY);
+
+    /**
+     * Recupera la lista de construcciones
+     * @return lista de construcciones pendientes
+     */
+    List<ConstructionDto> findPendingConstruction();
 
 }

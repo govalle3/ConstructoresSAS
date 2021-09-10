@@ -14,6 +14,6 @@ public class ListConstructionCommandHandler {
     }
 
     public List<ConstructionDto> execute(){
-        return this.constructionRepository.findEndDateConstruction();
+        return this.constructionRepository.findConstruction();
     }
 }
