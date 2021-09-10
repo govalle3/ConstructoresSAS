@@ -1,4 +1,4 @@
-package com.ceiba.ConstructoresSAS.domain.reports;
+package com.ceiba.ConstructoresSAS.domain.reports.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.nio.file.Path;
 
 
+import com.ceiba.ConstructoresSAS.domain.reports.service.FileExporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -20,15 +21,11 @@ public class DownloadController {
     @Autowired
     private FileExporter fileExporter;
 
-    @RequestMapping("/")
-    public String index() {
-        return "index";
-    }
 
-    @RequestMapping("/download1")
+    @RequestMapping("/download") // apunta a LOCAL localhost:8080/download
     public ResponseEntity<InputStreamResource> downloadTextFileExample1() throws FileNotFoundException {
-        String fileName = "example1.txt";
-        String fileContent = "Simple Solution \nDownload Example 1";
+        String fileName = "Reporte_Construccion.txt"; // TODO
+        String fileContent = "Simple Solution \n Download Example 1"; // TODO
 
         // Create text file
         Path exportedPath = fileExporter.export(fileContent, fileName);

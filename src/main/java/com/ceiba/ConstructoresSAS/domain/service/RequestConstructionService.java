@@ -208,7 +208,6 @@ public class RequestConstructionService {
     private void assignDateConstruction(Construction construction, Integer dueDate) {
         LocalDate requestDay = construction.getRequestDay();
         List<ConstructionDto> constructionDtoList = this.constructionRepository.findPendingConstruction();
-
         LocalDate startConstructionDay = requestDay.plusDays(1);
         LocalDate finishConstructionDay = startConstructionDay.plusDays(dueDate);
         construction.setStartConstructionDay(startConstructionDay);
